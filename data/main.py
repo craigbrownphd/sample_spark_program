@@ -8,9 +8,9 @@ def print_rdd(rdd, desc):
 
 sc = SparkContext("spark://spark-master:7077", "PopularItems")
 
-
 # 0. Read data in
-data = sc.textFile("/tmp/data/access.log", 2)     # each worker loads a piece of the data file
+# each worker loads a piece of the data file
+data = sc.textFile("/tmp/data/access.log", 2)
 
 # 1. line -> (user_id, item_id clicked on by the user)
 step1 = data.map(lambda line: line.split(" "))
@@ -24,7 +24,7 @@ def combine(s2):
     arr = list(s2[1])
     out = []
     for combination in itertools.combinations(arr, 2):
-        out.append(   (s2[0], combination)  )
+        out.append((s2[0], combination))
     return out
 step3 = step2.flatMap(combine)
 
@@ -43,8 +43,6 @@ step6 = step5.filter(lambda s5: s5[1]>2)
 
 # output results
 for t in step6.collect():
-    print("Items {} and {} were co-clicked {} times.".format(t[0][0], t[0][1], t[1]))
-
-
+    print("OUTPUT: Items {} and {} were co-clicked {} times.".format(t[0][0], t[0][1], t[1]))
 
 sc.stop()
