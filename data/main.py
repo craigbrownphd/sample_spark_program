@@ -31,23 +31,12 @@ print_rdd(step2, "step2: (user_id, [item])")
 # 3. Transform into (user_id, (item1, item2)) where item1 and item2 are pairs of items the user clicked on
 # NOTE: if a user only liked 1 item, then that user's items will not be considered.
 def combine(s2):
-<<<<<<< HEAD
     arr = list(set(s2[1]))
     arr = sorted(arr)
-=======
-    # remove duplicates
-    arr = list(set(s2[1]))
->>>>>>> c98986003f54dddfdd38cd7381714073657ce1ec
     out = []
     for i in range(0, len(arr)):
         for j in range(i+1, len(arr)):
             out.append((s2[0], (arr[i], arr[j])))
-<<<<<<< HEAD
-=======
-    # for combination in itertools.combinations(arr, 2):
-        # if combination[0] != combination[1]:
-        #     out.append((s2[0], combination))
->>>>>>> c98986003f54dddfdd38cd7381714073657ce1ec
     return out
 step3 = step2.flatMap(combine)
 # print_rdd(step3, "step3: (user_id, (item1, item2))")
