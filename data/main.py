@@ -18,7 +18,7 @@ sc = SparkContext("spark://spark-master:7077", "PopularItems")
 
 # 0. Read data in
 # each worker loads a piece of the data file
-data = sc.textFile("/tmp/data/access3.log", 2)
+data = sc.textFile("/tmp/data/access.log", 2)
 
 # 1. line -> (user_id, item_id clicked on by the user)
 step1 = data.map(lambda line: line.split(" "))
