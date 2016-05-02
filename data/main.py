@@ -35,11 +35,15 @@ step4 = step3.map(reverse).groupByKey()
 
 # 5. Transform into ((item1, item2), count of distinct users who co-clicked (item1, item2)
 step5 = step4.map(lambda s4: (s4[0], len(s4[1])))
-print_rdd(step5, "step5: ((item1, item2), len([user_id]))")
+# print_rdd(step5, "step5: ((item1, item2), len([user_id]))")
 
 # 6. Filter out any results where less than 3 users co-clicked the same pair of items
 step6 = step5.filter(lambda s5: s5[1]>2)
-print_rdd(step6, "step6 (filtered): ((item1, item2), len([user_id]))")
+# print_rdd(step6, "step6 (filtered): ((item1, item2), len([user_id]))")
+
+# output results
+for t in step6.collect():
+    print("Items {} and {} were co-clicked {} times.".format(t[0][0], t[0][1], t[1]))
 
 
 
