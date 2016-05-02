@@ -15,7 +15,7 @@
 # u4 i3
 FILEPATH = "./data/access.log"
 NUM_USERS = 10
-NUM_ITEMS = 100
+NUM_ITEMS = 10
 NUM_COCLICKED_ITEMS = 10
 with open(FILEPATH, 'w') as f:
     for u in range(0,NUM_USERS):
