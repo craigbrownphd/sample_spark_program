@@ -11,6 +11,5 @@ hello:
 setup_server:
 	sudo docker-compose up
 
-
 create_test_file:
 	python create_test_data.py
