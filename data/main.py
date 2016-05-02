@@ -44,5 +44,6 @@ step6 = step5.filter(lambda s5: s5[1]>2)
 # output results
 for t in step6.collect():
     print("OUTPUT: Items {} and {} were co-clicked {} times.".format(t[0][0], t[0][1], t[1]))
+    # step6.saveAsTextFile("/tmp/data/results.output")
 
 sc.stop()
