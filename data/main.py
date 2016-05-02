@@ -17,6 +17,7 @@ step1 = data.map(lambda line: line.split(" "))
 
 # 2. Group data into (user_id, list of item ids they clicked on)
 step2 = step1.groupByKey()
+print_rdd(step2, "step2: (user_id, [item])")
 
 # 3. Transform into (user_id, (item1, item2)) where item1 and item2 are pairs of items the user clicked on
 # NOTE: if a user only liked 1 item, then that user's items will not be considered.
@@ -24,14 +25,17 @@ def combine(s2):
     arr = list(s2[1])
     out = []
     for combination in itertools.combinations(arr, 2):
-        out.append((s2[0], combination))
+        if combination[0] != combination[1]:
+            out.append((s2[0], combination))
     return out
 step3 = step2.flatMap(combine)
+print_rdd(step3, "step3: (user_id, (item1, item2))")
 
 # 4. Transform into ((item1, item2), list of user1, user2 etc) where users are all the ones who co-clicked (item1, item2)
 def reverse(s3):
     return (s3[1], s3[0])
 step4 = step3.map(reverse).groupByKey()
+print_rdd(step4, "step4: ((item1, item2), [user])")
 
 # 5. Transform into ((item1, item2), count of distinct users who co-clicked (item1, item2)
 step5 = step4.map(lambda s4: (s4[0], len(s4[1])))
