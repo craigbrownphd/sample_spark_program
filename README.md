@@ -1,4 +1,4 @@
-# sample Spark Program
+# Sample Spark Program
 
 A co-clicked pair of items refers to two items that have been clicked by the same user. The idea is that if lots of people are co-clicking items then a recommender system can suggest to a new user that they buy item 2 if they click on item 1. This program determines the number of co-clicked pairs of items by users. 
 
